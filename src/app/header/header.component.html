@@ -1,0 +1,46 @@
+<div class="bg-[#27272A] px-3 py-4">
+  <div class="flex justify-between items-center pb-3">
+    <button>
+      <ng-icon
+        name="heroChevronLeft"
+        class="text-primary"
+        [strokeWidth]="2"
+        size="1.5em"
+      ></ng-icon>
+    </button>
+    <h2 class="text-white text-xl font-semibold">Living Room</h2>
+    <button>
+      <ng-icon
+        name="heroEllipsisVertical"
+        class="text-primary"
+        [strokeWidth]="2"
+        size="1.5em"
+      ></ng-icon>
+    </button>
+  </div>
+  <div class="mt-3 bg-[#3a3a3f] rounded-full flex p-[2px]">
+    @for (i of [1,2,3]; track i) {
+    <div class="flex-grow flex">
+      <button
+        class="p-1 text-center flex-grow text-white rounded-full transition-all"
+        [ngClass]="{
+          'bg-[#73757B]': i === currentOption,
+          'bg-[transparent]': i !== currentOption
+        }"
+        (click)="currentOption = i"
+      >
+        Option {{ i }}
+      </button>
+      @if (i !== 3) {<span
+        class="mx-1 border-l my-2"
+        [ngClass]="
+          currentOption - i > 1 || currentOption - i < 0
+            ? 'border-[#535356]'
+            : 'border-transparent'
+        "
+      ></span
+      >}
+    </div>
+    }
+  </div>
+</div>

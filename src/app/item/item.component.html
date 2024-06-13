@@ -1,0 +1,137 @@
+<div class="my-3 shadow-sm">
+  <div
+    class="rounded-t-xl bg-white"
+    [ngClass]="{ 'rounded-b-xl': !hasAttachments }"
+  >
+    <div class="p-4">
+      <ng-container
+        *ngTemplateOutlet="itemContent; context: { content: item }"
+      />
+    </div>
+    <div
+      class="border-t border-slate-200 py-3 px-4 flex gap-4 cursor-pointer"
+      [ngClass]="{ 'border-b': hasAttachments }"
+    >
+      @for (order of orderColors.slice(0, item.orders); track order) {
+      <div class="flex items-center gap-1" [ngStyle]="{ color: order }">
+        <span class="font-semibold text-[11px]"
+          >Change Order {{ $index + 1 }}</span
+        >
+        <ng-icon name="heroChevronRightMini" [strokeWidth]="2" />
+      </div>
+      }
+    </div>
+  </div>
+  @if (hasAttachments) {
+  <div class="rounded-b-xl bg-white border-l-[12px] border-[#E8E9ED]">
+    <div
+      class="px-4 flex items-center justify-between py-2 text-black font-bold cursor-pointer"
+      (click)="expandAttachments = !expandAttachments"
+    >
+      <div class="flex">
+        <div class="flex items-center mb-0.5">
+          <img src="images/attachments.png" width="32" />
+          <span class="ml-2">{{ item.attachments.length }} Attachments</span>
+          @if (!expandAttachments){
+          <span class="mx-2 text-lg">·</span>
+          <span>{{ item.total }}</span
+          >}
+        </div>
+        <button class="ml-2">
+          <ng-icon
+            name="heroChevronDown"
+            class="transition-all"
+            [strokeWidth]="3"
+            size="0.9em"
+            [ngClass]="{ 'rotate-180': expandAttachments }"
+          />
+        </button>
+      </div>
+      @if (expandAttachments) {
+      <div>
+        <app-toggle
+          [checked]="combine"
+          (change)="combine = $event"
+          label="Combine"
+        />
+      </div>
+      }
+    </div>
+
+    <div
+      class="overflow-hidden transition-all"
+      [ngClass]="expandAttachments ? 'max-h-[500px]' : 'max-h-0'"
+    >
+      @for (attachment of item.attachments; track $index) {
+      <div class="border-t border-[#E8E9ED] p-4">
+        <ng-container
+          *ngTemplateOutlet="itemContent; context: { content: attachment }"
+        />
+      </div>
+      }
+    </div>
+  </div>
+  }
+</div>
+
+<ng-template #itemContent let-content="content">
+  <div class="flex gap-4">
+    <div
+      class="bg-[#f5f5f5] w-20 h-20 p-1 rounded-lg flex items-center justify-center"
+    >
+      <img [src]="content.image" w="100%" h="auto" />
+    </div>
+    <div class="flex flex-col gap-1/2 pt-1">
+      @if (content.item) {
+      <div class="text-[12px] text-gray">{{ content.item }}</div>
+      }
+      <div class="text-black font-bold text-lg">{{ content.name }}</div>
+      @if (content.description) {
+      <div class="text-black">{{ content.description }}</div>
+      }
+    </div>
+  </div>
+  <div class="flex gap-3 mt-3">
+    <div class="w-20">
+      @if (content.recrruingTaxExcempt) {
+      <div class="text-gray text-[11px]">
+        Recurring <br />
+        Tax Excempt
+      </div>
+      }
+    </div>
+    <div class="flex gap-1 items-start">
+      <button class="action-btn">
+        <span class="mr-2 whitespace-nowrap">Qty 1</span>
+        <ng-icon name="heroChevronDownMini" [strokeWidth]="2" />
+      </button>
+      <div>
+        <button class="action-btn">
+          @if (content.wishlisted) {
+          <ng-icon
+            name="heroTag"
+            class="text-primary mr-1"
+            [strokeWidth]="2"
+            size="1em"
+          />
+          } @else if (content.receiptPercent) {
+          <ng-icon
+            name="heroReceiptPercent"
+            class="text-primary mr-1"
+            [strokeWidth]="2"
+            size="1em"
+          />
+          }
+          <span class="mr-2">{{ content.price }}</span>
+          <ng-icon name="heroChevronDownMini" [strokeWidth]="2" />
+        </button>
+        <div class="text-center text-gray text-[11px] mt-1">
+          {{ content.profit }} profit
+        </div>
+      </div>
+      <button class="action-btn">
+        <ng-icon name="heroEllipsisVertical" [strokeWidth]="3" />
+      </button>
+    </div>
+  </div>
+</ng-template>

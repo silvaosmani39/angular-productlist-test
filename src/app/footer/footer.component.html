@@ -1,0 +1,17 @@
+<div class="bg-[#27272A] px-6 py-5 flex gap-2 justify-between relative">
+  @for (item of menuItems; track item.text) {
+  <div
+    class="flex flex-col justify-center items-center cursor-pointer transition-all"
+    [ngClass]="$index === selectedMenuItem ? 'text-primary' : 'text-[#828282]'"
+    (click)="selectedMenuItem = $index"
+  >
+    <ng-icon [name]="item.iconName" size="1.6em"></ng-icon>
+    <span class="text-[12px]">{{ item.text }}</span>
+  </div>
+  }
+  <button
+    class="plus-btn rounded-full absolute -top-16 right-4 bg-[#27272A] text-white w-12 h-12 flex items-center justify-center"
+  >
+    <ng-icon name="heroPlus" size="2em" class="text-white"></ng-icon>
+  </button>
+</div>

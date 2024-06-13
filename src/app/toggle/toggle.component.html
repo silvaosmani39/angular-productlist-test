@@ -1,0 +1,16 @@
+<label
+  class="flex justify-between items-center cursor-pointer"
+  (click)="onClick($event)"
+>
+  {{ label }}
+  <input [checked]="checked" type="checkbox" class="appearance-none" />
+  <span
+    class="w-11 h-6 flex items-center flex-shrink-0 ml-2 p-0.5 rounded-full"
+    [ngClass]="checked ? 'bg-[#27272A]' : 'bg-slate-200'"
+  >
+    <span
+      class="w-5 h-5 bg-white rounded-full shadow-md transition-all"
+      [ngClass]="checked ? 'ml-[17px]' : 'ml-0'"
+    ></span>
+  </span>
+</label>

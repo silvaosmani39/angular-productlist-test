@@ -1,0 +1,12 @@
+<div class="pt-4 pb-8">
+  <div class="px-4 text-2xl font-bold text-text">Items</div>
+  <div class="px-2 mt-4">
+    @for (item of items; track $index) {
+    <app-item [item]="item" />
+    }
+  </div>
+  <div class="flex justify-between text-black text-xl font-bold px-4">
+    <div>Living Room Total</div>
+    <div>$123,456.78</div>
+  </div>
+</div>
